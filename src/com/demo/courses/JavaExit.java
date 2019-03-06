@@ -8,7 +8,7 @@ import com.demo.annotations.CallByFrameWork;
 public class JavaExit extends AbstractCourse{
 
     @CallByFrameWork(callingSequence = 1)
-    private void a_exitJava(){
+    private void exitJava(){
         System.exit(0);
     }
 }

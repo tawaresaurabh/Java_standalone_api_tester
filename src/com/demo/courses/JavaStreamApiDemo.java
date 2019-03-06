@@ -120,7 +120,7 @@ public class JavaStreamApiDemo extends AbstractCourse {
 
     @CallByFrameWork(callingSequence = 11)
 
-    private void j_getAllSalaryStats() {
+    private void getAllSalaryStats() {
 
         List<Double> salaries = employeeList.stream()
                                             .map(e -> e.getSalary().doubleValue())

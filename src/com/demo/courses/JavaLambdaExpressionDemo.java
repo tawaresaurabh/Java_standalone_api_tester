@@ -8,7 +8,7 @@ import com.demo.annotations.CallByFrameWork;
 public class JavaLambdaExpressionDemo extends AbstractCourse {
 
     @CallByFrameWork(callingSequence = 1)
-    private void a_printSimpleListByLambdaExpression() {
+    private void printSimpleListByLambdaExpression() {
         breakLine();
         defaultIntegerValues.forEach(integer -> System.out.println("Printing no."+integer));
 
@@ -16,7 +16,7 @@ public class JavaLambdaExpressionDemo extends AbstractCourse {
 
     @CallByFrameWork(callingSequence = 2)
 
-    private void b_printEvenNumberListByLambdaExpression() {
+    private void printEvenNumberListByLambdaExpression() {
         breakLine();
         defaultIntegerValues.forEach(integer -> {
             if(integer%2==0){
