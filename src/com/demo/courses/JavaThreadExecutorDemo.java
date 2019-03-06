@@ -1,5 +1,7 @@
 package com.demo.courses;
 
+import com.demo.annotations.CallByFrameWork;
+
 import java.util.concurrent.*;
 
 /**
@@ -7,16 +9,12 @@ import java.util.concurrent.*;
  */
 public class JavaThreadExecutorDemo extends AbstractCourse {
 
-    @Override
-    public void process() {
-        ExecutorService executor= null;
-       // ExecutorService ex = Executors.newSingleThreadScheduledExecutor();
+    @CallByFrameWork(callingSequence = 2)
+    private void processExecutionByCallable() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
         try{
-            executor = Executors.newSingleThreadExecutor();
-            processExecutionByRunnable(executor);
-            Future<Integer> sizeFuture =  processExecutionByCallable(executor);
+            Future<Integer> sizeFuture =  processExecutionByCallableFuture(executor);
             System.out.println("Size of the List is --> "+ sizeFuture.get());
-
         }catch (InterruptedException e){
             e.printStackTrace();
         }catch (ExecutionException e){
@@ -27,17 +25,23 @@ public class JavaThreadExecutorDemo extends AbstractCourse {
             executor.shutdown();
 
         }
-        System.out.println("This is where the code ends");
+
     }
 
 
-
-    private Future<Integer> processExecutionByCallable(ExecutorService executor) {
+    private Future<Integer> processExecutionByCallableFuture(ExecutorService executor) {
         return executor.submit(new ExecutionByCallable());
     }
 
-    private void processExecutionByRunnable(ExecutorService executor) {
-        executor.execute(new ExecutionByRunnable());
+    @CallByFrameWork(callingSequence = 1)
+    private void processExecutionByRunnable() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try{
+            executor.execute(new ExecutionByRunnable());
+        }finally {
+            executor.shutdown();
+        }
+
     }
 
 
@@ -46,7 +50,7 @@ public class JavaThreadExecutorDemo extends AbstractCourse {
             System.out.println("Processing using  - "+ threadExecutionStyle);
             for(int i=11;i<15;i++){
                 defaultIntegerValues.add(i);
-                System.out.println("Added "+i+" Into the list");
+                System.out.println("Added "+i+" Into the list using -"+threadExecutionStyle);
                 Thread.sleep(3000);
             }
             System.out.println("Processing completed using - "+ threadExecutionStyle);

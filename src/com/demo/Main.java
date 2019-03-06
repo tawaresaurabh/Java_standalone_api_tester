@@ -39,10 +39,10 @@ public class Main {
     public static void main(String[] args) throws IOException, IllegalAccessException, InstantiationException {
         while(true){
             String consoleValue = "";
-            System.out.println("------Welcome to the course ---------");
+            System.out.println("\n\n------Welcome to the course ---------");
             populateClassExampleHolder();
             printClassExampleHolder();
-            System.out.println("\n\n-- Please Enter an Int Value corresponding to course-- \n\n");
+            System.out.println("\n-- Please Enter an Int Value corresponding to course--");
             consoleValue = CourseUtil.readValueFromConsole();
             if(!StringUtils.isEmpty(consoleValue)){
                 try{

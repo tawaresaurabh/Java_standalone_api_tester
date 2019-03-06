@@ -9,7 +9,7 @@ public class JavaLambdaExpressionDemo extends AbstractCourse {
 
     @CallByFrameWork(callingSequence = 1)
     private void printSimpleListByLambdaExpression() {
-        breakLine();
+
         defaultIntegerValues.forEach(integer -> System.out.println("Printing no."+integer));
 
     }
@@ -17,7 +17,7 @@ public class JavaLambdaExpressionDemo extends AbstractCourse {
     @CallByFrameWork(callingSequence = 2)
 
     private void printEvenNumberListByLambdaExpression() {
-        breakLine();
+
         defaultIntegerValues.forEach(integer -> {
             if(integer%2==0){
                 System.out.println("Even no."+ integer);

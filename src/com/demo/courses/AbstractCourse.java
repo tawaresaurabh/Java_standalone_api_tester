@@ -39,7 +39,7 @@ public class AbstractCourse implements CourseEnabled {
         populateEmployeeList();
         processClassIntro();
         process();
-        breakLine();
+
     }
 
     @Override
@@ -52,6 +52,7 @@ public class AbstractCourse implements CourseEnabled {
                 .filter(methodPredicate)
                 .sorted(Comparator.comparing(method2 -> method2.getAnnotation(CallByFrameWork.class).callingSequence()))
                 .peek(method1 -> method1.setAccessible(true))
+                .peek(method3 -> System.out.println("\n\n"+ method3.getName()))
                 .peek(method -> {
             try {
                 method.invoke(classInstance);
@@ -102,7 +103,5 @@ public class AbstractCourse implements CourseEnabled {
     }
 
 
-    public static void breakLine(){
-        System.out.print("\n\n");
-    }
+
 }

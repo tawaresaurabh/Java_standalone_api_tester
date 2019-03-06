@@ -4,12 +4,13 @@ import com.demo.annotations.CallByFrameWork;
 import com.demo.bean.Employee;
 
 import java.math.BigDecimal;
-import java.util.Comparator;
-import java.util.DoubleSummaryStatistics;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
+
 
 /**
  * Created by I317726 on 3/3/2019.
@@ -18,7 +19,7 @@ public class JavaStreamApiDemo extends AbstractCourse {
 
     @CallByFrameWork(callingSequence = 1)
     private void filterEmployeesById() {
-        breakLine();
+       
         Integer idTobeTraced = 3;
         Predicate<Employee> employeePredicate = employee -> employee.getId() == idTobeTraced;
         List<Employee> filteredList = employeeList.stream().filter(employeePredicate).collect(Collectors.toList());
@@ -29,7 +30,7 @@ public class JavaStreamApiDemo extends AbstractCourse {
     @CallByFrameWork(callingSequence = 2)
 
     private void countEmployeesForCriteria() {
-        breakLine();
+       
         Predicate<Employee> employeePredicate = (employee -> (new BigDecimal(50000).compareTo(employee.getSalary())) ==0);
         Long empCount =  employeeList.stream().filter(employeePredicate).count();
         System.out.print("No.of Employee that satisfy the Predicate -  "+ empCount);
@@ -38,7 +39,7 @@ public class JavaStreamApiDemo extends AbstractCourse {
     @CallByFrameWork(callingSequence = 3)
 
     private void hikeSalaryForAllEmployeesUsingNoPeek() {
-        breakLine();
+       
         System.out.print("Hiked salary is - \n");
         employeeList.stream().forEach(e -> e.hikeSalary(new BigDecimal(1000)));
         employeeList.stream().forEach(e -> System.out.println(e.getSalary()));
@@ -49,7 +50,7 @@ public class JavaStreamApiDemo extends AbstractCourse {
     @CallByFrameWork(callingSequence = 4)
 
     private void hikeSalaryForAllEmployeesUsingPeek() {
-        breakLine();
+       
 
         employeeList.stream()
                 .peek(e -> e.hikeSalary(new BigDecimal(1000)))
@@ -60,7 +61,7 @@ public class JavaStreamApiDemo extends AbstractCourse {
     @CallByFrameWork(callingSequence = 5)
 
     private void findMaxSalary() {
-        breakLine();
+       
 
 
 
@@ -105,7 +106,7 @@ public class JavaStreamApiDemo extends AbstractCourse {
 
     @CallByFrameWork(callingSequence = 10)
     private void extractAllSalariesAndPrint() {
-        breakLine();
+       
         //Extract property of an object using map and collect into a List
         List<BigDecimal> salaries = employeeList.stream()
                                     .map(Employee::getSalary)
@@ -122,6 +123,7 @@ public class JavaStreamApiDemo extends AbstractCourse {
 
     private void getAllSalaryStats() {
 
+       
         List<Double> salaries = employeeList.stream()
                                             .map(e -> e.getSalary().doubleValue())
                                             .collect(Collectors.toList());
@@ -135,6 +137,34 @@ public class JavaStreamApiDemo extends AbstractCourse {
 
     }
 
+
+
+    @CallByFrameWork(callingSequence = 12)
+
+    private void groupEmployeeByDepartment() {
+
+       
+        Map<String , List<Employee>> groupEmployeeByDept = employeeList.stream().collect(groupingBy(Employee::getDepartment));
+
+       groupEmployeeByDept.forEach((s, employees) -> System.out.println(s + ": " + employees.size()));
+
+
+    }
+
+
+
+    @CallByFrameWork(callingSequence = 13)
+
+    private void countEmployeeByDepartment() {
+
+       
+        Map<String,Long> countEmployeeByDept = employeeList.stream().collect(groupingBy(Employee::getDepartment, counting()));
+
+        System.out.println(countEmployeeByDept);
+        //  groupEmployeeByDept.forEach((s, employees) -> System.out.println(s + ": " + employees.size()));
+
+
+    }
 
 
 
